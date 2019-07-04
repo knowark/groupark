@@ -39,3 +39,18 @@ def test_functional_compounder_compound(dataset):
         {'type': 'truck', 'count_type': 3},
         {'type': 'van', 'count_type': 2}
     ]
+
+
+def test_functional_compounder_other_key(dataset):
+    compounder = FunctionalCompounder()
+
+    groups = ['year']
+    aggregator = compounder.compound(groups=groups)
+
+    result = aggregator(dataset)
+
+    assert result == [
+        {'year': '2018', 'count_year': 2},
+        {'year': '2019', 'count_year': 5},
+        {'year': '2020', 'count_year': 5}
+    ]
