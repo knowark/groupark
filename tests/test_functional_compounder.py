@@ -65,15 +65,15 @@ def test_functional_compounder_two_groups(dataset):
     result = aggregator(dataset)
 
     assert result == [
-        {'year': '2018', 'type': 'sedan', 'count_year_type': 1},
-        {'year': '2018', 'type': 'van', 'count_year_type': 1},
-        {'year': '2019', 'type': 'sedan', 'count_year_type': 2},
-        {'year': '2019', 'type': 'suv', 'count_year_type': 1},
-        {'year': '2019', 'type': 'truck', 'count_year_type': 2},
-        {'year': '2020', 'type': 'sedan', 'count_year_type': 2},
-        {'year': '2020', 'type': 'suv', 'count_year_type': 1},
-        {'year': '2020', 'type': 'truck', 'count_year_type': 1},
-        {'year': '2020', 'type': 'van', 'count_year_type': 1}
+        {'year': '2018', 'type': 'sedan', 'count_year': 1},
+        {'year': '2018', 'type': 'van', 'count_year': 1},
+        {'year': '2019', 'type': 'sedan', 'count_year': 2},
+        {'year': '2019', 'type': 'suv', 'count_year': 1},
+        {'year': '2019', 'type': 'truck', 'count_year': 2},
+        {'year': '2020', 'type': 'sedan', 'count_year': 2},
+        {'year': '2020', 'type': 'suv', 'count_year': 1},
+        {'year': '2020', 'type': 'truck', 'count_year': 1},
+        {'year': '2020', 'type': 'van', 'count_year': 1}
     ]
 
 
@@ -86,13 +86,30 @@ def test_functional_compounder_two_groups_inverted(dataset):
     result = aggregator(dataset)
 
     assert result == [
-        {'type': 'sedan', 'year': '2018', 'count_type_year': 1},
-        {'type': 'sedan', 'year': '2019', 'count_type_year': 2},
-        {'type': 'sedan', 'year': '2020', 'count_type_year': 2},
-        {'type': 'suv', 'year': '2019', 'count_type_year': 1},
-        {'type': 'suv', 'year': '2020', 'count_type_year': 1},
-        {'type': 'truck', 'year': '2019', 'count_type_year': 2},
-        {'type': 'truck', 'year': '2020', 'count_type_year': 1},
-        {'type': 'van', 'year': '2018', 'count_type_year': 1},
-        {'type': 'van', 'year': '2020', 'count_type_year': 1}
+        {'type': 'sedan', 'year': '2018', 'count_type': 1},
+        {'type': 'sedan', 'year': '2019', 'count_type': 2},
+        {'type': 'sedan', 'year': '2020', 'count_type': 2},
+        {'type': 'suv', 'year': '2019', 'count_type': 1},
+        {'type': 'suv', 'year': '2020', 'count_type': 1},
+        {'type': 'truck', 'year': '2019', 'count_type': 2},
+        {'type': 'truck', 'year': '2020', 'count_type': 1},
+        {'type': 'van', 'year': '2018', 'count_type': 1},
+        {'type': 'van', 'year': '2020', 'count_type': 1}
+    ]
+
+
+def test_functional_compounder_single_aggregation(dataset):
+    compounder = FunctionalCompounder()
+
+    groups = ['year']
+    aggregations = ['sum:price']
+
+    aggregator = compounder.compound(groups=groups, aggregations=aggregations)
+
+    result = aggregator(dataset)
+
+    assert result == [
+        {'year': '2018', 'sum_price': 66000},
+        {'year': '2019', 'sum_price': 287000},
+        {'year': '2020', 'sum_price': 241000}
     ]
