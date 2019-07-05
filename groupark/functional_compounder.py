@@ -12,14 +12,16 @@ class FunctionalCompounder:
             data = sorted(data, key=key_function)
 
             result = []
-            for group, values in groupby(data, key_function):
+            for section, values in groupby(data, key_function):
                 row = {}
                 operation = 'count'
 
+                for index, element in enumerate(section):
+                    row[groups[index]] = element
+
                 composite = sum(1 for _ in values)
 
-                row[f"{groups[0]}"] = group[0]
-                row[f"{operation}_{groups[0]}"] = composite
+                row[f"{operation}_{'_'.join(groups)}"] = composite
 
                 result.append(row)
 
