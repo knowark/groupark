@@ -25,6 +25,8 @@ class FunctionalCompounder:
             result = []
             for section, values in groupby(data, key_function):
                 row = {}
+                if len(aggregations) > 1:
+                    values = list(values)
 
                 for index, element in enumerate(section):
                     row[groups[index]] = element

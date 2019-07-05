@@ -113,3 +113,35 @@ def test_functional_compounder_single_aggregation(dataset):
         {'year': '2019', 'sum_price': 287000},
         {'year': '2020', 'sum_price': 241000}
     ]
+
+
+def test_functional_compounder_double_aggregation(dataset):
+    compounder = FunctionalCompounder()
+
+    groups = ['type', 'year']
+    aggregations = ['sum:price', 'count:name']
+
+    aggregator = compounder.compound(groups=groups, aggregations=aggregations)
+
+    result = aggregator(dataset)
+
+    assert result == ([
+        {'type': 'sedan', 'year': '2018',
+         'sum_price': 21000, 'count_name': 1},
+        {'type': 'sedan', 'year': '2019',
+         'sum_price': 90000, 'count_name': 2},
+        {'type': 'sedan', 'year': '2020',
+         'sum_price': 121000, 'count_name': 2},
+        {'type': 'suv', 'year': '2019',
+         'sum_price': 67000, 'count_name': 1},
+        {'type': 'suv', 'year': '2020',
+         'sum_price': 47000, 'count_name': 1},
+        {'type': 'truck', 'year': '2019',
+         'sum_price': 130000, 'count_name': 2},
+        {'type': 'truck', 'year': '2020',
+         'sum_price': 43000, 'count_name': 1},
+        {'type': 'van', 'year': '2018',
+         'sum_price': 45000, 'count_name': 1},
+        {'type': 'van', 'year': '2020',
+         'sum_price': 30000, 'count_name': 1}
+    ])
