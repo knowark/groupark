@@ -75,3 +75,24 @@ def test_functional_compounder_two_groups(dataset):
         {'year': '2020', 'type': 'truck', 'count_year_type': 1},
         {'year': '2020', 'type': 'van', 'count_year_type': 1}
     ]
+
+
+def test_functional_compounder_two_groups_inverted(dataset):
+    compounder = FunctionalCompounder()
+
+    groups = ['type', 'year']
+    aggregator = compounder.compound(groups=groups)
+
+    result = aggregator(dataset)
+
+    assert result == [
+        {'type': 'sedan', 'year': '2018', 'count_type_year': 1},
+        {'type': 'sedan', 'year': '2019', 'count_type_year': 2},
+        {'type': 'sedan', 'year': '2020', 'count_type_year': 2},
+        {'type': 'suv', 'year': '2019', 'count_type_year': 1},
+        {'type': 'suv', 'year': '2020', 'count_type_year': 1},
+        {'type': 'truck', 'year': '2019', 'count_type_year': 2},
+        {'type': 'truck', 'year': '2020', 'count_type_year': 1},
+        {'type': 'van', 'year': '2018', 'count_type_year': 1},
+        {'type': 'van', 'year': '2020', 'count_type_year': 1}
+    ]
