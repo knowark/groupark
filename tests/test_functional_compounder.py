@@ -156,7 +156,6 @@ def test_functional_compounder_composite_functions(dataset):
         ('max', 'price', 70000),
         ('median', 'price', 49000.0),
         ('min', 'price', 21000),
-        ('mode', 'price', 70000),
         ('stdev', 'price', 17479.858539057306),
         ('sum', 'price', 594000),
         ('var', 'price', 305545454.54545456),

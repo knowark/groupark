@@ -13,7 +13,6 @@ class FunctionalCompounder:
             'median': lambda field, values: median(
                 row[field] for row in values),
             'min': lambda field, values: min(row[field] for row in values),
-            'mode': lambda field, values: mode(row[field] for row in values),
             'stdev': lambda field, values: stdev(row[field] for row in values),
             'sum': lambda field, values: sum(row[field] for row in values),
             'var': lambda field, values: variance(
