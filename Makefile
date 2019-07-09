@@ -13,7 +13,7 @@ COVFILE ?= .coverage
 coverage: 
 	mypy groupark
 	export COVERAGE_FILE=$(COVFILE); pytest -x --cov=groupark tests/ \
-	--cov-report term-missing -s -o cache_dir=/tmp/.pytest_cache
+	--cov-branch --cov-report term-missing -s -o cache_dir=/tmp/.pytest_cache
 
 PART ?= patch
 

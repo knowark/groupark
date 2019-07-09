@@ -145,3 +145,24 @@ def test_functional_compounder_double_aggregation(dataset):
         {'type': 'van', 'year': '2020',
          'sum_price': 30000, 'count_name': 1}
     ])
+
+
+def test_functional_compounder_composite_functions(dataset):
+    compounder = FunctionalCompounder()
+
+    test_tuples = [
+        ('avg', 'price', 49500),
+        ('count', 'price', 12),
+        ('max', 'price', 70000),
+        ('median', 'price', 49000.0),
+        ('min', 'price', 21000),
+        ('mode', 'price', 70000),
+        ('stdev', 'price', 17479.858539057306),
+        ('sum', 'price', 594000),
+        ('var', 'price', 305545454.54545456),
+    ]
+
+    for test_tuple in test_tuples:
+        result = compounder._build_composite(
+            test_tuple[0], test_tuple[1], dataset)
+        assert result == test_tuple[2]
